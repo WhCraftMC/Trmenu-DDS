@@ -1,0 +1,1036 @@
+Title:
+  - '&0&l打地鼠 Last Points: %trmenu_data_points%'
+
+
+
+
+Shape:
+  - - '         '
+    - '         '
+    - '         '
+    - '         '
+    - '         '
+    - '         '
+  
+  - - '   ####  '
+    - '  #      '
+    - '  #  ##  '
+    - '  #   #  '
+    - '  #   #  '
+    - '   ###   '
+    
+  - - '   ###   '
+    - '  #   #  '
+    - '  #   #  '
+    - '  #   #  '
+    - '  #   #  '
+    - '   ###   '
+    
+  - - '   ###   '
+    - '  #   #  '
+    - '  #   #  '
+    - '  ####   '
+    - '  #      '
+    - '  #      '
+    
+  - - '  #   #  '
+    - '  #   #  '
+    - '  #####  '
+    - '  #   #  '
+    - '  #   #  '
+    - '         '
+    
+  - - '   ####  '
+    - '  #      '
+    - '  #####  '
+    - '  #      '
+    - '   ####  '
+    - '         '
+    
+  - - '   ###   '
+    - '  #   #  '
+    - '  ####   '
+    - '  # #    '
+    - '  #  #   '
+    - '  #   #  ' 
+    
+  - - '#########'
+    - '123456789'
+    - '`10``11``12``13``14``15``16``17``18`'
+    - '`19``20``21``22``23``24``25``26``27`'
+    - '#########'
+    
+PlayerInventory:
+  
+- - '         '
+  - '         '
+  - '         '
+  - 'd   R   u'
+
+- - '         '
+  - '         '
+  - '         '
+  - 'D   S   U'
+
+- - '         '
+  - '         '
+  - '         '
+  - 'D   S   U'
+
+- - '         '
+  - '         '
+  - '         '
+  - 'D   S   U'
+
+- - '         '
+  - '         '
+  - '         '
+  - 'D   S   U'
+
+- - '         '
+  - '         '
+  - '         '
+  - 'D   S   U'
+
+- - '         '
+  - '         '
+  - '         '
+  - 'D   S   U'
+
+- - '         '
+  - '         '
+  - '         '
+  - 'D   S   U'
+
+Options:
+  Arguments: false
+  Default-Arguments: ["0", "0"]
+  Depend-Expansions:
+    - player
+    - math
+  Hide-Player-Inventory: true
+  Min-Click-Delay: 200
+
+Bindings:
+  Commands:
+    
+
+Events:
+  Open:
+    - condition: 'perm *trmenu.use'
+      actions:
+        - 'sound: BLOCK_CHEST_OPEN-1-2'
+        - 'setdata: speed 5'
+        - 'setdata: time 0'
+        - 'rem-meta: timing'
+        - 'shape: 1'
+        - 'delay: 5'
+        - 'shape: 2'
+        - 'delay: 5'
+        - 'shape: 3'
+        - 'delay: 5'
+        - 'shape: 4'
+        - 'delay: 5'
+        - 'shape: 5'
+        - 'delay: 5'
+        - 'shape: 6'
+        - 'delay: 5'
+        - 'shape: 7'
+      deny:
+        - 'sound: ENTITY_ITEM_BREAK-1-1'
+        - 'tell: &7你需要权限 &ctrmenu.use &7才能打开这个菜单.'
+        - 'return'
+  Close:
+    - 'sound: BLOCK_CHEST_CLOSE-1-2'
+
+Icons:
+  '#':
+    display:
+      mats: Red Stained Glass Pane
+      name: '&7&lGophers'
+      lore:
+        - '&7打地鼠'
+  'R':
+    update: 3
+    display:
+      mats: RED_STONE
+      name: '&c&l我要重玩!'
+      lore: 
+        - '&cRestart!'
+        - ''
+        - '将重启该局游戏并保存记录'
+        - '0分将不会被保存至记录'
+    actions:
+      left:
+        - 'shape: 7'
+        - |-
+          js:
+            function set(){
+              var tag = %trmenu_data_points% 
+              var current = utils.getDataSection(player).getStringList("Gro.points")
+              current.add(tag)
+              utils.setData(player, "Gro.points", current)
+            }
+            set()
+        - 'delay: 5'
+        - 'setdata: points 0'
+        - 'settitle: &8&nGophers&f - &0&l打地鼠 Points: %trmenu_data_points% &f%math_30-{trmenu_data_time}[precision:0]%'
+        - 'rem-meta: timing'
+        - 'setdata: time 0'
+        - 'refresh'
+    icons:
+      - condition: 'equals.%trmenu_data_points%.0'
+        display:
+          mats: RED_STONE
+          name: '&c&l我要重玩s!'
+          lore: 
+            - '&cRestart!'
+            - ''
+            - '将重启该局游戏并保存记录'
+            - '0分将不会被保存至记录'
+        actions:
+          left:
+            - 'shape: 7'
+            - 'setdata: points 0'
+            - 'settitle: &8&nGophers&f - &0&l打地鼠 Points: %trmenu_data_points% &f%math_30-{trmenu_data_time}[precision:0]%'
+            - 'rem-meta: timing'
+            - 'setdata: time 0'
+            - 'refresh'
+  'S':
+    display:
+      mats: RED_STONE
+      name: '&c&l点击开始'
+      lore: 
+        - '&cStart!'
+    actions:
+      left:
+        - 'shape: 0'
+        - 'setdata: points 0'
+        - 'settitle: &8&nGophers&f - &0&l打地鼠 Points: %trmenu_data_points% &f%math_30-{trmenu_data_time}[precision:0]%'
+        - 'setmeta: timing true'
+        - 'setdata: time 0'
+  'D':
+    display:
+      mats: book
+      name: '&7&l降低速度'
+      lore:
+        - '&7Speed Drop'
+        - ''
+        - '当前速度: &a%trmenu_data_speed%'
+    actions:
+      all:
+        - 'setdata: speed %math_{trmenu_data_speed}-1[precision:0]%'
+        - 'refresh'
+    icons:
+    - condition: '"%trmenu_data_speed%" <= 1'
+      display:
+        mats: book
+        name: '&7&l最低速度'
+        lore:
+          - '&7Speed Min'
+          - ''
+          - '当前速度: &a%trmenu_data_speed%'
+  'U':
+    display:
+      mats: enchant_book
+      name: '&b&l提高速度'
+      lore:
+        - '&bSpeed Up'
+        - ''
+        - '当前速度: &a%trmenu_data_speed%'
+    actions:
+      all:
+        - 'setdata: speed %math_{trmenu_data_speed}+1[precision:0]%'
+        - 'refresh'
+    icons:
+    - condition: '"%trmenu_data_speed%" >= 9'
+      display:
+        mats: enchant_book
+        name: '&b&l最高速度'
+        lore:
+          - '&bSpeed Max'
+          - ''
+          - '当前速度: &a%trmenu_data_speed%'
+  'd':
+    update: 1
+    display:
+      mats: book
+      name: '&7&l降低速度'
+      lore:
+        - '&7Speed Drop'
+        - ''
+        - '游戏已开始 &c无法调整速度'
+        - '当前速度: &a%math_{trmenu_data_speed}[precision:0]%'
+  'u':
+    update: 1
+    display:
+      mats: enchant_book
+      name: '&b&l提高速度'
+      lore:
+        - '&bSpeed Up'
+        - ''
+        - '游戏已开始 &c无法调整速度'
+        - '当前速度: &a%trmenu_data_speed%'
+  'G1':
+    update: 36
+    display:
+      mats: AIR
+    icons:
+      - condition: '"%trmenu_data_speed%" == 1'
+        display:
+          mats: '<skull:eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmFlMjVhM2JjYWUzZmRmOGEwM2Q1ZWRiOTQxZGFiOGI3MWRmZDMxMGNhYTFjZGQyODA0M2EzOWYxOGE3YzIxIn19fQ==>'
+          name: '地鼠'
+          lore: 
+            - '&a打不到我打不到我哈哈哈哈'
+            - '当前速度: &a1'
+          slot: '${js: utils.randomInteger(0, 53)}'
+        actions:
+          left:
+            - 'sound: ENTITY_BAT_HURT'
+            - 'setdata: points %math_1+{trmenu_data_points}[precision:0]%<Chance=0.8>'
+            - 'settitle: &8&nGophers&f - &0&l打地鼠 Points: %trmenu_data_points% &f%math_30-{trmenu_data_time}[precision:0]%'
+            - 'refresh'
+  'G2':
+    update: 32
+    display:
+      mats: AIR
+    icons:
+      - condition: '"%trmenu_data_speed%" == 2'
+        update: [-1, -1, -1, 32]
+        display:
+          mats: '<skull:eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmFlMjVhM2JjYWUzZmRmOGEwM2Q1ZWRiOTQxZGFiOGI3MWRmZDMxMGNhYTFjZGQyODA0M2EzOWYxOGE3YzIxIn19fQ==>'
+          name: '地鼠'
+          lore: 
+            - '&a打不到我打不到我哈哈哈哈'
+            - '当前速度: &a2'
+          slot: '${js: utils.randomInteger(0, 53)}'
+        actions:
+          left:
+            - 'sound: ENTITY_BAT_HURT'
+            - 'setdata: points %math_1+{trmenu_data_points}[precision:0]%<Chance=0.8>'
+            - 'settitle: &8&nGophers&f - &0&l打地鼠 Points: %trmenu_data_points% &f%math_30-{trmenu_data_time}[precision:0]%'
+            - 'refresh'
+  'G3':
+    update: 28
+    display:
+      mats: AIR
+    icons:
+      - condition: '"%trmenu_data_speed%" == 3'
+        display:
+          mats: '<skull:eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmFlMjVhM2JjYWUzZmRmOGEwM2Q1ZWRiOTQxZGFiOGI3MWRmZDMxMGNhYTFjZGQyODA0M2EzOWYxOGE3YzIxIn19fQ==>'
+          name: '地鼠'
+          lore: 
+            - '&a打不到我打不到我哈哈哈哈'
+            - '当前速度: &a3'
+          slot: '${js: utils.randomInteger(0, 53)}'
+        actions:
+          left:
+            - 'sound: ENTITY_BAT_HURT'
+            - 'setdata: points %math_1+{trmenu_data_points}[precision:0]%<Chance=0.8>'
+            - 'settitle: &8&nGophers&f - &0&l打地鼠 Points: %trmenu_data_points% &f%math_30-{trmenu_data_time}[precision:0]%'
+            - 'refresh'
+  'G4':
+    update: 24
+    display:
+      mats: AIR
+    icons:
+      - condition: '"%trmenu_data_speed%" == 4'
+        display:
+          mats: '<skull:eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmFlMjVhM2JjYWUzZmRmOGEwM2Q1ZWRiOTQxZGFiOGI3MWRmZDMxMGNhYTFjZGQyODA0M2EzOWYxOGE3YzIxIn19fQ==>'
+          name: '地鼠'
+          lore: 
+            - '&a打不到我打不到我哈哈哈哈'
+            - '当前速度: &a4'
+          slot: '${js: utils.randomInteger(0, 53)}'
+        actions:
+          left:
+            - 'sound: ENTITY_BAT_HURT'
+            - 'setdata: points %math_1+{trmenu_data_points}[precision:0]%<Chance=0.8>'
+            - 'settitle: &8&nGophers&f - &0&l打地鼠 Points: %trmenu_data_points% &f%math_30-{trmenu_data_time}[precision:0]%'
+            - 'refresh'
+  'G5':
+    update: 20
+    display:
+      mats: AIR
+    icons:
+      - condition: '"%trmenu_data_speed%" == 5'
+        display:
+          mats: '<skull:eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmFlMjVhM2JjYWUzZmRmOGEwM2Q1ZWRiOTQxZGFiOGI3MWRmZDMxMGNhYTFjZGQyODA0M2EzOWYxOGE3YzIxIn19fQ==>'
+          name: '地鼠'
+          lore: 
+            - '&a打不到我打不到我哈哈哈哈'
+            - '当前速度: &a5'
+          slot: '${js: utils.randomInteger(0, 53)}'
+        actions:
+          left:
+            - 'sound: ENTITY_BAT_HURT'
+            - 'setdata: points %math_1+{trmenu_data_points}[precision:0]%<Chance=0.8>'
+            - 'settitle: &8&nGophers&f - &0&l打地鼠 Points: %trmenu_data_points% &f%math_30-{trmenu_data_time}[precision:0]%'
+            - 'refresh'
+  'G6':
+    update: 16
+    display:
+      mats: AIR
+    icons:
+      - condition: '"%trmenu_data_speed%" == 6'
+        display:
+          mats: '<skull:eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmFlMjVhM2JjYWUzZmRmOGEwM2Q1ZWRiOTQxZGFiOGI3MWRmZDMxMGNhYTFjZGQyODA0M2EzOWYxOGE3YzIxIn19fQ==>'
+          name: '地鼠'
+          lore: 
+            - '&a打不到我打不到我哈哈哈哈'
+            - '当前速度: &a6'
+          slot: '${js: utils.randomInteger(0, 53)}'
+        actions:
+          left:
+            - 'sound: ENTITY_BAT_HURT'
+            - 'setdata: points %math_1+{trmenu_data_points}[precision:0]%<Chance=0.8>'
+            - 'settitle: &8&nGophers&f - &0&l打地鼠 Points: %trmenu_data_points% &f%math_30-{trmenu_data_time}[precision:0]%'
+            - 'refresh'
+  'G7':
+    update: 12
+    display:
+      mats: AIR
+    icons:
+      - condition: '"%trmenu_data_speed%" == 7'
+        display:
+          mats: '<skull:eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmFlMjVhM2JjYWUzZmRmOGEwM2Q1ZWRiOTQxZGFiOGI3MWRmZDMxMGNhYTFjZGQyODA0M2EzOWYxOGE3YzIxIn19fQ==>'
+          name: '地鼠'
+          lore: 
+            - '&a打不到我打不到我哈哈哈哈'
+            - '当前速度: &a7'
+          slot: '${js: utils.randomInteger(0, 53)}'
+        actions:
+          left:
+            - 'sound: ENTITY_BAT_HURT'
+            - 'setdata: points %math_1+{trmenu_data_points}[precision:0]%<Chance=0.8>'
+            - 'settitle: &8&nGophers&f - &0&l打地鼠 Points: %trmenu_data_points% &f%math_30-{trmenu_data_time}[precision:0]%'
+            - 'refresh'
+  'G8':
+    update: 8
+    display:
+      mats: AIR
+    icons:
+      - condition: '"%trmenu_data_speed%" == 8'
+        display:
+          mats: '<skull:eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmFlMjVhM2JjYWUzZmRmOGEwM2Q1ZWRiOTQxZGFiOGI3MWRmZDMxMGNhYTFjZGQyODA0M2EzOWYxOGE3YzIxIn19fQ==>'
+          name: '地鼠'
+          lore: 
+            - '&a打不到我打不到我哈哈哈哈'
+            - '当前速度: &a8'
+          slot: '${js: utils.randomInteger(0, 53)}'
+        actions:
+          left:
+            - 'sound: ENTITY_BAT_HURT'
+            - 'setdata: points %math_1+{trmenu_data_points}[precision:0]%<Chance=0.8>'
+            - 'settitle: &8&nGophers&f - &0&l打地鼠 Points: %trmenu_data_points% &f%math_30-{trmenu_data_time}[precision:0]%'
+            - 'refresh'
+  'G9':
+    update: 4
+    display:
+      mats: AIR
+    icons:
+      - condition: '"%trmenu_data_speed%" == 9'
+        display:
+          mats: '<skull:eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmFlMjVhM2JjYWUzZmRmOGEwM2Q1ZWRiOTQxZGFiOGI3MWRmZDMxMGNhYTFjZGQyODA0M2EzOWYxOGE3YzIxIn19fQ==>'
+          name: '地鼠'
+          lore: 
+            - '&a打不到我打不到我哈哈哈哈'
+            - '当前速度: &a9'
+          slot: '${js: utils.randomInteger(0, 53)}'
+        actions:
+          left:
+            - 'sound: ENTITY_BAT_HURT'
+            - 'setdata: points %math_1+{trmenu_data_points}[precision:0]%<Chance=0.8>'
+            - 'settitle: &8&nGophers&f - &0&l打地鼠 Points: %trmenu_data_points% &f%math_30-{trmenu_data_time}[precision:0]%'
+            - 'refresh'
+            
+  
+  
+  1:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_1}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_1} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_1}.length == 0'
+        display:
+          material: AIR
+
+  2:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_2}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_2} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_2}.length == 0'
+        display:
+          material: AIR
+
+  3:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_3}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_3} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_3}.length == 0'
+        display:
+          material: AIR
+
+  4:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_4}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_4} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_4}.length == 0'
+        display:
+          material: AIR
+
+  5:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_5}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_5} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_5}.length == 0'
+        display:
+          material: AIR
+
+  6:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_6}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_6} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_6}.length == 0'
+        display:
+          material: AIR
+
+  7:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_7}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_7} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_7}.length == 0'
+        display:
+          material: AIR   
+          
+  7:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_7}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_7} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_7}.length == 0'
+        display:
+          material: AIR  
+          
+  9:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_9}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_9} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_9}.length == 0'
+        display:
+          material: AIR  
+          
+  10:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_10}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_10} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_10}.length == 0'
+        display:
+          material: AIR  
+  11:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_11}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_11} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_11}.length == 0'
+        display:
+          material: AIR  
+  12:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_12}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_12} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_12}.length == 0'
+        display:
+          material: AIR  
+  13:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_13}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_13} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_13}.length == 0'
+        display:
+          material: AIR  
+  14:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_14}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_14} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_14}.length == 0'
+        display:
+          material: AIR  
+  15:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_15}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_15} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_15}.length == 0'
+        display:
+          material: AIR  
+  16:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_16}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_16} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_16}.length == 0'
+        display:
+          material: AIR  
+  17:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_17}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_17} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_17}.length == 0'
+        display:
+          material: AIR  
+  18:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_18}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_18} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_18}.length == 0'
+        display:
+          material: AIR  
+  19:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_19}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_19} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_19}.length == 0'
+        display:
+          material: AIR  
+  20:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_20}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_20} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_20}.length == 0'
+        display:
+          material: AIR  
+  21:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_21}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_21} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_21}.length == 0'
+        display:
+          material: AIR  
+  22:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_22}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_22} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_22}.length == 0'
+        display:
+          material: AIR  
+  23:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_23}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_23} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_23}.length == 0'
+        display:
+          material: AIR  
+  24:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_24}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_24} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_24}.length == 0'
+        display:
+          material: AIR  
+  25:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_25}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_25} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_25}.length == 0'
+        display:
+          material: AIR  
+  26:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_26}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_26} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_26}.length == 0'
+        display:
+          material: AIR  
+  27:
+    update: 1
+    display:
+      material: name tag
+      name: '&3# &b分数排行'
+      lore:
+      - ''
+      - '分数记录: &a${points.list_27}'
+      - ''
+      - '点击 &f丢弃 按键 &7移除该次记录'
+      - ''
+    actions:
+      drop:
+        - 'tell: &7已移除记录 &3${points.remove_27} &7.'
+        - 'refresh'
+    icons:
+      - condition: '${points.list_27}.length == 0'
+        display:
+          material: AIR  
+          
+          
+          
+Tasks:
+ Time:
+   period: 20
+   task:
+     - condition: 'equals.{meta:timing}.true'
+       actions:
+         - 'sound: BLOCK_NOTE_BLOCK_BIT-1-2'
+         - 'setdata: time %math_1+{trmenu_data_time}[precision:0]%'
+         - 'settitle: &8&nGophers&f - &0&l打地鼠 Points: %trmenu_data_points% &f%math_30-{trmenu_data_time}[precision:0]%'
+ Stop:
+   period: 10
+   task:
+     - condition: 'utils.isGreaterOrEqual(%trmenu_data_time%, 30)'
+       actions:
+         - 'shape: 7'
+         - 'rem-meta: timing'
+         - |-
+           js:
+             function set(){
+               var tag = %trmenu_data_points% 
+               var current = utils.getDataSection(player).getStringList("Gro.points")
+               current.add(tag)
+               utils.setData(player, "Gro.points", current)
+             }
+             set()
+         - 'delay: 5'
+         - 'setdata: points 0'
+         - 'settitle: &8&nGophers&f - &0&l打地鼠 Points: %trmenu_data_points% &f%math_30-{trmenu_data_time}[precision:0]%'
+         - 'rem-meta: timing'
+         - 'setdata: time 0'
+         - 'refresh'
+
+
+
+# javascript函数构建, 不懂勿改
+# 称号数据保存于 服务端\plugins\TabooLib\playerdata\v2\data.db
+Functions:
+  points:
+    remove: |-
+      function run(){
+        var tags = utils.getDataSection(player).getStringList("Gro.points")
+        var index = {0}
+        var tag = tags.subList(27 * %trmenu_args_0%, tags.size())[index-1]
+        tags.remove(tag)
+        utils.setData(player, "Gro.points", tags)
+        return tag
+      }
+      run()
+    list: |-
+      function list(){
+        var tags = utils.sort(utils.getDataSection(player).getStringList("Gro.points"))
+        var type = {0}
+        tags = tags.subList(27 * %trmenu_args_0%, tags.size())
+        if (type == 0){
+          return tags.size()
+        } else {
+          if (type <= tags.size()){
+             return tags[type - 1]
+          }
+          return ''
+        }
+      }
+      list()
